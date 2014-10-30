@@ -1,0 +1,34 @@
+<?php
+require_once "connectBD.php";
+
+$connectBD = new connectBD();
+$con = $connectBD -> conecta();
+
+if($_REQUEST["acao"] == "Encerrar") {
+
+	$DescSolucao = $_REQUEST['DescSolucao'];
+	$idSolicitacao = $_REQUEST["idSolicitacao"];
+
+	//echo "IDDDD = ".$idSolicitacao;
+
+ 	date_default_timezone_set('America/Sao_Paulo');
+	$datafim = date("Y-m-d H:i:s");
+	//echo "DATA = ".$datafim;
+
+	$sql = "UPDATE solicitacao SET Status_id = 3,
+			DescSolucao = '".$DescSolucao."', dataFim = '".$datafim."'
+			WHERE id = ".$idSolicitacao;
+
+	$resultado = mysql_query($sql) or die("Falha na execução da instrução SQL!");
+	//echo $sql;
+	echo '<script type="text/javascript">alert("Solicitacao Encerrada com sucesso!") 
+	window.location = "listasolicitacoes.php"; </script>';
+
+			//echo $resultado;
+
+
+
+} //else if($_REQUEST["acao"] == "Editar") {
+
+//}
+?>
